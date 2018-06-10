@@ -8,15 +8,48 @@ import Article from '../Article';
 const recipe = recipes[0];
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      recipe: recipes[0],
+      recipeIndex: 0,
+      currentRecipeId: '',
+    }
+    this.recipePrev = this.recipePrev.bind(this);
+    this.recipeNext = this.recipeNext.bind(this);
+  }
+  recipePrev(recipeId) {
+    console.log('click');
+    this.setState({
+      recipe: recipes[0],
+      recipeIndex: 0,
+      currentRecipeId: recipeId,
+    });
+  }
+  recipeNext(recipeId) {
+    console.log('click');
+    this.setState({
+      currentRecipeId: recipeId,
+      recipeId: recipeId + 1,
+    });  
+  }
+
   render() {
     return (
       <div className="flex-container">
         <nav className="nav">
-          <button className="btn btn-default">Previous Recipe</button>
-          <button className="btn btn-default">Next Recipe</button>
+          <button className={`previous-recipe ${this.props.recipeId === this.props.currentRecipeId ? 'selected' : ''}`}
+            onClick={() => { this.props.recipePrev(this.props.recipeId) }}>Previous Recipe</button>
+          <button className= "next-recipe"
+            onClick={() => { this.props.recipeNext(this.props.recipeId) }}>Next Recipe</button>
         </nav>
 
         <Header
+          key={recipe.id}
+          recipeId={recipe.id}
+          currentRecipeId={this.state.currentRecipeId}
+          recipeNext ={this.recipeNext}
+          recipePrev = {this.recipePrev}
           title={recipe.title}
           byline={recipe.byline}
           activePrep={recipe.activePrep}
@@ -35,5 +68,5 @@ class App extends Component {
     );
   }
 }
-
+console.log(Object.getPrototypeOf(App));
 export default App;
