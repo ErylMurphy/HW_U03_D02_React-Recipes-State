@@ -5,7 +5,7 @@ import recipes from '../data/recipes';
 import Header from '../Header';
 import Article from '../Article';
 
-const recipe = recipes;
+const recipe = recipes[0];
 
 class App extends Component {
   constructor(props) {
@@ -60,4 +60,5 @@ class App extends Component {
   }
 }
 console.log(Object.getPrototypeOf(App));
+
 export default App;
